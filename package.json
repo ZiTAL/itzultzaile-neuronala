@@ -1,0 +1,30 @@
+{
+  "name": "itzulpen-neuronala",
+  "version": "1.0.0",
+  "description": "Eusko Jaurlaritzaren itzultzaile automatikoa erabiliko dugu gazteleratik itzultzeko",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.20.2",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.0",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "sass": "^1.56.1",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-bundle-analyzer": "^4.7.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.34.1",
+    "monaco-editor-webpack-plugin": "^7.0.1"
+  }
+}

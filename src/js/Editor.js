@@ -1,17 +1,19 @@
 import * as monaco from 'monaco-editor'
+import ItzultzaileNeuronala from    './ItzultzaileNeuronala'
 
 class Editor
 {
-	static getInstance()
+	static editor = null
+	static createDom()
 	{
-		let instance = document.querySelector('.editor')
-		if(!instance)
+		let dom = document.querySelector('.editor')
+		if(!dom)
 		{
-			instance = document.createElement('div')
-			instance.setAttribute('class', 'editor')
-			document.querySelector('body').appendChild(instance)
+			dom = document.createElement('div')
+			dom.setAttribute('class', 'editor')
+			document.querySelector('body').appendChild(dom)
 		}
-		return instance
+		return dom
 	}
 
 	static create(text)
@@ -23,19 +25,65 @@ class Editor
 	{
 		// The diff editor offers a navigator to jump between changes. Once the diff is computed the <em>next()</em> and <em>previous()</em> method allow navigation. By default setting the selection in the editor manually resets the navigation state.
 		let self		= this
-		let instance	= self.getInstance()
+		let dom	= self.createDom()
 
-		const diff_editor	= monaco.editor.createDiffEditor(instance,
+		self.editor	= monaco.editor.createDiffEditor(dom,
 		{
 			originalEditable: true
 		})
-		diff_editor.setModel(
+
+		self.editor.setModel(
 		{
 			original: self.create(original),
 			modified: self.create(modified)
-		});
+		})
 
-		return diff_editor
+		self.setKeyBindings(self.editor._originalEditor)
+		self.setKeyBindings(self.editor._modifiedEditor)
+
+		return self.editor
+	}
+
+	static setKeyBindings(editor)
+	{
+		let self = this
+		editor.addAction(
+		{
+			// An unique identifier of the contributed action.
+			id: 'itzuli',
+		
+			// A label of the action that will be presented to the user.
+			label: 'Itzuli',
+		
+			// An optional array of keybindings for the action.
+			keybindings:
+			[
+				monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter
+			],
+		
+			// A precondition for this action.
+			precondition: null,
+		
+			// A rule to evaluate on top of the precondition in order to dispatch the keybindings.
+			keybindingContext: null,
+		
+			contextMenuGroupId: 'navigation',
+		
+			contextMenuOrder: 1.5,
+		
+			// Method that will be executed when the action is triggered.
+			// @param editor The editor instance is passed in as a convenience
+			run: function (ed)
+			{
+				//alert("i'm running => " + ed.getPosition());
+				const original = self.editor.getOriginalEditor().getValue()
+				ItzultzaileNeuronala.get(original)
+				.then(function(modified)
+				{
+					self.editor.getModifiedEditor().setValue(modified)
+				})
+			}
+		})
 	}
 }
 

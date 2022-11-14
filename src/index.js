@@ -1,20 +1,13 @@
-import                              './styles/main.scss'
-import Editor               from    './js/Editor'
-import ItzultzaileNeuronala from    './js/ItzultzaileNeuronala'
+import             './styles/main.scss'
+import Editor from './js/Editor'
 
-const diff = Editor.diff
+Editor.diff
 (
-    "Aquí se debe de escribir en español.",
-    "Hemen gero bueltan itzulpena ikusi ahal izateko\n Kodea: https://github.com/zital/itzultzaile-neuronala\n Lizentzia: GPL3"
-)
+`Aquí se debera de poner el texto en castellano.
 
-let button = document.querySelector('button')
-button.addEventListener('click', function()
-{
-    const original = diff.getOriginalEditor().getValue()
-    ItzultzaileNeuronala.get(original)
-    .then(function(modified)
-    {
-        diff.getModifiedEditor().setValue(modified)
-    })
-})
+Itzultzeko:
+1. Saguaren eskumako botoia + "itzuli"
+2. Ctrl + Enter
+`,
+`Itzulpena atal honetan agertuko da.`
+)

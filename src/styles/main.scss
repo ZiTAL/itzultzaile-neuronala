@@ -5,10 +5,22 @@ html, body
     max-height: 100% !important;    
 }
 
-button
+div.logo
 {
-    width:      100%;
-    margin:     auto;
+    position:   fixed;
+    top:        0px;
+    left:       0px;
+}
+
+div.logo a img
+{
+    width:  40px;
+    height: 40px;
+    top:    40px;
+}
+
+div.form
+{
     text-align: center;
 }
 

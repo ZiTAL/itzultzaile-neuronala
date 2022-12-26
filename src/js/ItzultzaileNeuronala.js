@@ -1,19 +1,17 @@
 class ItzultzaileNeuronala
 {
-    static url = 'https://api.euskadi.eus/itzuli/es2eu/translate'
-
     static get(text)
     {
         let self = this
         return new Promise(function(resolve, reject)
         {
-            fetch(self.url,
+            fetch(self.getUrl(),
             {
                 method: 'POST',
                 body:   JSON.stringify(
                 {
                     mkey:     "8d9016025eb0a44215c7f69c2e10861d",
-                    model:    "generic_es2eu",
+                    model:    self.getModel(),
                     text:     text,
                 })
             })
@@ -28,6 +26,23 @@ class ItzultzaileNeuronala
                 reject(e)
             })
         })
+    }
+
+    static getType()
+    {
+        return document.querySelector('select').value
+    }    
+
+    static getUrl()
+    {
+        const type = this.getType()
+        return `https://api.euskadi.eus/itzuli/${type}/translate`
+    }
+
+    static getModel()
+    {
+        const type = this.getType()
+        return `generic_`+type
     }
 }
 

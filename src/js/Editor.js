@@ -75,15 +75,29 @@ class Editor
 			// @param editor The editor instance is passed in as a convenience
 			run: function (ed)
 			{
-				//alert("i'm running => " + ed.getPosition());
+				//console.log("i'm running => " + ed.getPosition());
+				self.run()
+/*
 				const original = self.editor.getOriginalEditor().getValue()
 				ItzultzaileNeuronala.get(original)
 				.then(function(modified)
 				{
 					self.editor.getModifiedEditor().setValue(modified)
 				})
+*/				
 			}
 		})
+	}
+
+	static run()
+	{
+		let self		= this
+		const original	= self.editor.getOriginalEditor().getValue()
+		ItzultzaileNeuronala.get(original)
+		.then(function(modified)
+		{
+			self.editor.getModifiedEditor().setValue(modified)
+		})		
 	}
 }
 

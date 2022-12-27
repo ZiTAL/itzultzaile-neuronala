@@ -1,5 +1,5 @@
-import * as monaco from 'monaco-editor'
-import ItzultzaileNeuronala from    './ItzultzaileNeuronala'
+import * as monaco			from 'monaco-editor'
+import ItzultzaileNeuronala from './ItzultzaileNeuronala'
 
 class Editor
 {
@@ -41,6 +41,8 @@ class Editor
 		self.setKeyBindings(self.editor._originalEditor)
 		self.setKeyBindings(self.editor._modifiedEditor)
 
+		self.editor.updateOptions({ wordWrap: "on" })
+
 		return self.editor
 	}
 
@@ -49,27 +51,17 @@ class Editor
 		let self = this
 		editor.addAction(
 		{
-			// An unique identifier of the contributed action.
-			id: 'itzuli',
+			id:		'itzuli', // An unique identifier of the contributed action.
+			label:	'Itzuli', // A label of the action that will be presented to the user.
 		
-			// A label of the action that will be presented to the user.
-			label: 'Itzuli',
-		
-			// An optional array of keybindings for the action.
-			keybindings:
+			keybindings: // An optional array of keybindings for the action.
 			[
 				monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter
 			],
-		
-			// A precondition for this action.
-			precondition: null,
-		
-			// A rule to evaluate on top of the precondition in order to dispatch the keybindings.
-			keybindingContext: null,
-		
+			precondition: 		null, // A precondition for this action.
+			keybindingContext:	null, // A rule to evaluate on top of the precondition in order to dispatch the keybindings.
 			contextMenuGroupId: 'navigation',
-		
-			contextMenuOrder: 1.5,
+			contextMenuOrder:	1.5,
 		
 			// Method that will be executed when the action is triggered.
 			// @param editor The editor instance is passed in as a convenience
@@ -77,14 +69,6 @@ class Editor
 			{
 				//console.log("i'm running => " + ed.getPosition());
 				self.run()
-/*
-				const original = self.editor.getOriginalEditor().getValue()
-				ItzultzaileNeuronala.get(original)
-				.then(function(modified)
-				{
-					self.editor.getModifiedEditor().setValue(modified)
-				})
-*/				
 			}
 		})
 	}

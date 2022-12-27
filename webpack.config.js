@@ -74,5 +74,9 @@ module.exports =
         }),
         new MonacoWebpackPlugin()
         //new BundleAnalyzerPlugin()
-    ]
+    ],
+    performance:
+    {
+        hints: false
+    }
 }    

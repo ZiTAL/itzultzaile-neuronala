@@ -78,8 +78,6 @@ class Xml
             text:     str,
             elements: ele
         }
-
-        console.log('result', result)
         
         return result
     }

@@ -1,10 +1,21 @@
+import Xml from './Xml'
+
 class ItzultzaileNeuronala
 {
     static get(text)
     {
-        let self = this
+        let self        = this
+        let mode        = ''
+        let xml_prepare
+
         return new Promise(function(resolve, reject)
         {
+            if(Xml.is(text))
+            {
+                mode        = 'xml'
+                xml_prepare = Xml.prepare(text)
+                text        = xml_prepare.text
+            }
             fetch(self.getUrl(),
             {
                 method: 'POST',
@@ -18,6 +29,12 @@ class ItzultzaileNeuronala
             .then((response) => response.json())            
             .then(function(r)
             {
+                switch(mode)
+                {
+                    case 'xml':
+                        r.message = Xml.replace(xml_prepare, r.message)
+                        break;
+                }
                 resolve(r.message)
             })
             .catch(function(e)

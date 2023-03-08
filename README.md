@@ -9,3 +9,6 @@ npm run dev
 
 # produkzioan jartzeko
 npm run build
+
+# online
+https://itzultzaile-neuronala.zital.freemyip.com/

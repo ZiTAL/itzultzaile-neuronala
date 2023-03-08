@@ -45,6 +45,15 @@ class Xml
                             node: n.parentNode
                         })
                     }
+                    else if(n.nodeType===4 && n.nodeValue.trim()!=='') // 4 CDATA
+                    {
+                        str+=n.nodeValue+sep
+                        ele.push(
+                        {
+                            type: 'cdata',
+                            node: n
+                        })                        
+                    }
                     else if(n.nodeType===1 && n.hasAttributes()) // 1 nodo normala
                     {
                         var attributes = n.attributes;
@@ -69,6 +78,8 @@ class Xml
             text:     str,
             elements: ele
         }
+
+        console.log('result', result)
         
         return result
     }
@@ -88,6 +99,9 @@ class Xml
                 ele[i].node.removeChild(ele[i].node.firstChild)
                 ele[i].node.appendChild(xml_prepare.xml.createTextNode(str[i]))
             }
+            else if(ele[i].type==='cdata')
+                ele[i].node.data = str[i]
+
             else if(ele[i].type==='attribute')
                 ele[i].node.setAttribute(ele[i].attribute.name, str[i])
         }    

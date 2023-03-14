@@ -1,4 +1,5 @@
 import Xml from './Xml'
+import Srt from './Srt'
 
 class ItzultzaileNeuronala
 {
@@ -16,6 +17,9 @@ class ItzultzaileNeuronala
                 xml_prepare = Xml.prepare(text)
                 text        = xml_prepare.text
             }
+            else if(Srt.is(text))
+                mode        = 'srt'
+
             let parts = self.split(text)
             self.serie(parts, 0, '')
             .then(function(response)
@@ -25,6 +29,10 @@ class ItzultzaileNeuronala
                     case 'xml':
                         response = Xml.replace(xml_prepare, response)
                         break;
+
+                    case 'srt':
+                        response = Srt.replace(response)
+                        break;                        
                 }
                 resolve(response)
             })

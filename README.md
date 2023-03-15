@@ -1,5 +1,9 @@
 # itzultzaile-neuronala
-Eusko Jaurlaritzaren itzultzaile automatikoa erabiliko dugu gazteleratik itzultzeko
+Eusko Jaurlaritzaren itzultzaile automatikoa erabiliko dugu gaztelera, ingelesesa zein frantzesetik itzultzeko:
+https://www.euskadi.eus/itzuli/
+
+# onartutako formatuak
+testua, xml, srt
 
 # instalatzeko
 npm install

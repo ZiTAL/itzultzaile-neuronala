@@ -3,37 +3,19 @@ import Srt from './Srt'
 
 class ItzultzaileNeuronala
 {
-    static get(text)
+    static get(input)
     {
         let self        = this
-        let mode        = ''
-        let xml_prepare
 
         return new Promise(function(resolve, reject)
         {
-            if(Xml.is(text))
-            {
-                mode        = 'xml'
-                xml_prepare = Xml.prepare(text)
-                text        = xml_prepare.text
-            }
-            else if(Srt.is(text))
-                mode        = 'srt'
+            const text  = self.preProccess(input)
+            const parts = self.split(text)
 
-            let parts = self.split(text)
             self.serie(parts, 0, '')
             .then(function(response)
             {
-                switch(mode)
-                {
-                    case 'xml':
-                        response = Xml.replace(xml_prepare, response)
-                        break;
-
-                    case 'srt':
-                        response = Srt.replace(response)
-                        break;                        
-                }
+                response = self.postProccess(input, response)
                 resolve(response)
             })
             .catch(function(e)
@@ -115,7 +97,7 @@ class ItzultzaileNeuronala
     static serie(parts, i, result, timeout)
     {
         let self = this
-        timeout = (i===0)?0:0.5 * 1000;
+        timeout = (i===0)?0:0.5 * 1000
 
         return new Promise(function(resolve, reject)
         {
@@ -138,6 +120,26 @@ class ItzultzaileNeuronala
                 })
             }, timeout)
         })
+    }
+
+    static preProccess(input)
+    {
+        let text = input
+        if(Xml.is(input))
+            text = Xml.prepare(input)
+
+        return text
+    }
+
+    static postProccess(input, response)
+    {
+        if(Xml.is(input))
+            response = Xml.replace(response)
+
+        else if(Srt.is(input))
+            response = Srt.replace(response)
+        
+        return response
     }
 }
 

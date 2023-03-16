@@ -1,5 +1,8 @@
 class Xml
 {
+    static #dom      = []
+    static #elements = []
+
     static is(str)
     {
         if (typeof str !== 'string')
@@ -9,7 +12,7 @@ class Xml
         
         try
         {
-            const xml_doc = parser.parseFromString(str, "application/xml");
+            const xml_doc = parser.parseFromString(str, "application/xml")
             return (xml_doc.getElementsByTagName("parsererror").length>0)?false:true
         }
         catch (error)
@@ -20,9 +23,10 @@ class Xml
 
     static prepare(input)
     {
-        const parser = new DOMParser();
-        const xml    = parser.parseFromString(input, "text/xml");
-        const nodes  = xml.getElementsByTagName("*");
+        let self = this
+        const parser = new DOMParser()
+        const xml    = parser.parseFromString(input, "text/xml")
+        const nodes  = xml.getElementsByTagName("*")
 
         let   str    = ''
         let   ele    = []
@@ -71,31 +75,28 @@ class Xml
                 }
             }
         }
+
+        self.#dom      = xml
+        self.#elements = ele
         
-        const result =
-        {
-            xml:      xml,
-            text:     str,
-            elements: ele
-        }
-        
-        return result
+        return str
     }
 
-    static replace(xml_prepare, text)
+    static replace(text)
     {
+        let self  = this
         let str   = text.split(/\n/)
         str       = str.filter(function(s)
         {
             return (s!=='§')
         })                    
-        const ele = xml_prepare.elements
+        const ele = self.#elements
         for(let i=0; i<ele.length; i++)
         {
             if(ele[i].type==='node')
             {
                 ele[i].node.removeChild(ele[i].node.firstChild)
-                ele[i].node.appendChild(xml_prepare.xml.createTextNode(str[i]))
+                ele[i].node.appendChild(self.#dom.createTextNode(str[i]))
             }
             else if(ele[i].type==='cdata')
                 ele[i].node.data = str[i]
@@ -103,8 +104,8 @@ class Xml
             else if(ele[i].type==='attribute')
                 ele[i].node.setAttribute(ele[i].attribute.name, str[i])
         }    
-        const serializer = new XMLSerializer();
-        const xml_str    = serializer.serializeToString(xml_prepare.xml);
+        const serializer = new XMLSerializer()
+        const xml_str    = serializer.serializeToString(self.#dom)
         return xml_str
     }
 }

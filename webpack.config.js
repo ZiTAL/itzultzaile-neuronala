@@ -1,6 +1,8 @@
-const path                  = require('path')
-const HtmlWebpackPlugin     = require('html-webpack-plugin')
-const MonacoWebpackPlugin   = require('monaco-editor-webpack-plugin')
+const path                 = require('path')
+const HtmlWebpackPlugin    = require('html-webpack-plugin')
+const MonacoWebpackPlugin  = require('monaco-editor-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports =
@@ -38,7 +40,7 @@ module.exports =
                 test: /\.(scss|css)$/,
                 use:
                 [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader'
                 ]
@@ -72,7 +74,11 @@ module.exports =
             filename:   'index.html',
             template:   'src/monaco.html'
         }),
-        new MonacoWebpackPlugin()
+        new MonacoWebpackPlugin(),
+        new MiniCssExtractPlugin(
+        {
+            filename: '[name].[contenthash].css'
+        })        
         //new BundleAnalyzerPlugin()
     ],
     performance:

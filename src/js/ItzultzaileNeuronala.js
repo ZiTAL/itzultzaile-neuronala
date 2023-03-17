@@ -3,9 +3,15 @@ import Srt from './Srt'
 
 class ItzultzaileNeuronala
 {
+    static #mode    = ''
+    static #limit   = 10000
+    static #timeout = 0.5 * 1000    
+    static #mkey    = '8d9016025eb0a44215c7f69c2e10861d'
+
     static get(input)
     {
-        let self        = this
+        let self = this
+        self.setMode(input)
 
         return new Promise(function(resolve, reject)
         {
@@ -15,7 +21,7 @@ class ItzultzaileNeuronala
             self.serie(parts, 0, '')
             .then(function(response)
             {
-                response = self.postProccess(input, response)
+                response = self.postProccess(response)
                 resolve(response)
             })
             .catch(function(e)
@@ -24,6 +30,22 @@ class ItzultzaileNeuronala
                 reject(e)
             })
         })
+    }
+
+    static setMode(input)
+    {
+        let mode = ''
+        if(Xml.is(input))
+            mode = 'xml'
+        else if(Srt.is(input))
+            mode = 'srt'
+
+        this.#mode = mode
+    }
+
+    static getMode()
+    {
+        return this.#mode
     }
 
     static getType()
@@ -45,7 +67,7 @@ class ItzultzaileNeuronala
 
     static split(data)
     {
-        const limit  = 10000
+        const limit  = this.#limit
         let   chunks = data.split(/\n/)
         const cl     = chunks.length
         
@@ -76,7 +98,7 @@ class ItzultzaileNeuronala
                 method: 'POST',
                 body:   JSON.stringify(
                 {
-                    mkey:     "8d9016025eb0a44215c7f69c2e10861d",
+                    mkey:     self.#mkey,
                     model:    self.getModel(),
                     text:     text,
                 })
@@ -97,7 +119,7 @@ class ItzultzaileNeuronala
     static serie(parts, i, result, timeout)
     {
         let self = this
-        timeout = (i===0)?0:0.5 * 1000
+        timeout = (i===0)?0:self.#timeout
 
         return new Promise(function(resolve, reject)
         {
@@ -131,13 +153,19 @@ class ItzultzaileNeuronala
         return text
     }
 
-    static postProccess(input, response)
+    static postProccess(response)
     {
-        if(Xml.is(input))
-            response = Xml.replace(response)
+        const mode = this.getMode()
+        switch(mode)
+        {
+            case 'xml':
+                response = Xml.replace(response)
+                break
 
-        else if(Srt.is(input))
-            response = Srt.replace(response)
+            case 'srt':
+                response = Srt.replace(response)
+                break                
+        }
         
         return response
     }

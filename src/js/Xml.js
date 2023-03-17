@@ -2,6 +2,7 @@ class Xml
 {
     static #dom      = []
     static #elements = []
+    static #sep      = '§'
 
     static is(str)
     {
@@ -21,29 +22,29 @@ class Xml
         }
     }
 
-    static prepare(input)
+    static getText(input)
     {
-        let self = this
-        const parser = new DOMParser()
-        const xml    = parser.parseFromString(input, "text/xml")
-        const nodes  = xml.getElementsByTagName("*")
+        const self     = this
+        const parser   = new DOMParser()
+        const dom      = parser.parseFromString(input, "text/xml")
+        const nodes    = dom.getElementsByTagName("*")
+        const sep      = `\n${self.#sep}\n`
 
-        let   str    = ''
-        let   ele    = []
-        let   sep    = "\n§\n"
+        let   str      = ''
+        let   elements = []
 
-        for(var i=0; i<nodes.length; i++)
+        for(let i=0; i<nodes.length; i++)
         {
-            var node = nodes[i]
+            let node = nodes[i]
             if(node.hasChildNodes())
             {
-                for(var j=0; j<node.childNodes.length; j++)
+                for(let j=0; j<node.childNodes.length; j++)
                 {
-                    var n = node.childNodes[j]
-                    if(n.nodeType===3 && n.nodeValue.trim()!=='') // 3 testua
+                    const n = node.childNodes[j]
+                    if(n.nodeType===3 && n.nodeValue.trim()!=='')      // 3 testua
                     {
                         str+=n.nodeValue+sep
-                        ele.push(
+                        elements.push(
                         {
                             type: 'node',
                             node: n.parentNode
@@ -52,19 +53,19 @@ class Xml
                     else if(n.nodeType===4 && n.nodeValue.trim()!=='') // 4 CDATA
                     {
                         str+=n.nodeValue+sep
-                        ele.push(
+                        elements.push(
                         {
                             type: 'cdata',
                             node: n
                         })                        
                     }
-                    else if(n.nodeType===1 && n.hasAttributes()) // 1 nodo normala
+                    else if(n.nodeType===1 && n.hasAttributes())       // 1 nodo normala
                     {
-                        var attributes = n.attributes;
+                        const attributes = n.attributes;
                         for (let k = 0; k < attributes.length; k++)
                         {
                             str+=attributes.item(k).value+sep
-                            ele.push(
+                            elements.push(
                             {
                                 type:      'attribute',
                                 attribute: attributes.item(k),
@@ -76,21 +77,21 @@ class Xml
             }
         }
 
-        self.#dom      = xml
-        self.#elements = ele
+        self.#dom      = dom
+        self.#elements = elements
         
         return str
     }
 
     static replace(text)
     {
-        let self  = this
-        let str   = text.split(/\n/)
-        str       = str.filter(function(s)
+        const self = this
+        const ele  = self.#elements
+        const str  = text.split(/\n/).filter(function(s)
         {
-            return (s!=='§')
+            return (s!==self.#sep)
         })                    
-        const ele = self.#elements
+        
         for(let i=0; i<ele.length; i++)
         {
             if(ele[i].type==='node')
@@ -104,9 +105,8 @@ class Xml
             else if(ele[i].type==='attribute')
                 ele[i].node.setAttribute(ele[i].attribute.name, str[i])
         }    
-        const serializer = new XMLSerializer()
-        const xml_str    = serializer.serializeToString(self.#dom)
-        return xml_str
+        const xml = new XMLSerializer().serializeToString(self.#dom)
+        return xml
     }
 }
 

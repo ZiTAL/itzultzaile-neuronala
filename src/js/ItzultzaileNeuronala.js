@@ -126,7 +126,7 @@ class ItzultzaileNeuronala
     {
         let text = input
         if(Xml.is(input))
-            text = Xml.prepare(input)
+            text = Xml.getText(input)
 
         return text
     }

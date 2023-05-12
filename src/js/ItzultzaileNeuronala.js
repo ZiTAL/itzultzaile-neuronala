@@ -1,5 +1,6 @@
 import Xml from './Xml'
 import Srt from './Srt'
+import Po from './Po'
 
 class ItzultzaileNeuronala
 {
@@ -39,6 +40,10 @@ class ItzultzaileNeuronala
             mode = 'xml'
         else if(Srt.is(input))
             mode = 'srt'
+        else if(Po.is(input))
+            mode = 'po'
+
+        console.log(mode)
 
         this.#mode = mode
     }
@@ -150,6 +155,9 @@ class ItzultzaileNeuronala
         if(Xml.is(input))
             text = Xml.getText(input)
 
+        if(Po.is(input))
+            text = Po.getText(input)            
+
         return text
     }
 
@@ -164,6 +172,10 @@ class ItzultzaileNeuronala
 
             case 'srt':
                 response = Srt.replace(response)
+                break
+                
+            case 'po':
+                response = Po.replace(response)
                 break                
         }
         

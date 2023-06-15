@@ -18,6 +18,7 @@ class ItzultzaileNeuronala
         {
             const text  = self.preProccess(input)
             const parts = self.split(text)
+            console.log('parts', parts)
 
             self.serie(parts, 0, '')
             .then(function(response)

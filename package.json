@@ -1,7 +1,7 @@
 {
   "name": "itzulpen-neuronala",
   "version": "1.0.0",
-  "description": "Eusko Jaurlaritzaren itzultzaile automatikoa erabiliko dugu gazteleratik itzultzeko",
+  "description": "Eusko Jaurlaritzaren itzultzaile automatikoren front-end alternatiboa",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "monaco-editor": "^0.34.1",
-    "monaco-editor-webpack-plugin": "^7.0.1"
+    "monaco-editor-webpack-plugin": "^7.0.1",
+    "tailwindcss": "^3.3.2"
   }
 }

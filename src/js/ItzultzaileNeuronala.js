@@ -5,8 +5,8 @@ import Po from './Po'
 class ItzultzaileNeuronala
 {
     static #mode    = ''
-    static #limit   = 10000
-    static #timeout = 0.5 * 1000    
+    static #limit   = 2500
+    static #timeout = 5 * 1000    
     static #mkey    = '8d9016025eb0a44215c7f69c2e10861d'
 
     static get(input)

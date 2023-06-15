@@ -59,6 +59,7 @@ class Xml
                             node: n
                         })                        
                     }
+/*
                     else if(n.nodeType===1 && n.hasAttributes())       // 1 nodo normala
                     {
                         const attributes = n.attributes;
@@ -73,6 +74,7 @@ class Xml
                             })                    
                         }
                     }
+*/                    
                 }
             }
         }

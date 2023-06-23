@@ -1,5 +1,8 @@
 class Srt
 {
+    static #elements = []
+    static #sep      = '§'
+    
     static is(str)
     {
         if (typeof str !== 'string')
@@ -12,14 +15,47 @@ class Srt
         return regex.test(str)
     }
 
-    static replace(output)
+    static getText(input)
     {
-/*
-        1
-        00:00: 00,000 --> 00:00: 01,800
-*/
-        const regex = /(\d+\n\d{2}:\d{2}:)\s(\d{2},\d{3}\s-->\s)(\d{2}:\d{2}:)\s(\d{2},\d{3})/g
-        return output.replace(regex, '$1$2$3$4')
+        console.log('getText')
+        let self     = this
+        let text     = ''
+        let pattern  = /(\d+)\n(\d+:\d+:\d+,\d+)\s-->\s(\d+:\d+:\d+,\d+)\n([\s\S]*?)(?=\n\d+\n|$)/g;
+        const sep    = `\n${self.#sep}\n`
+        const slices = input.match(pattern)
+
+        slices.forEach(function(slice)
+        {
+            pattern = /(\d+)\n(\d+:\d+:\d+,\d+)\s-->\s(\d+:\d+:\d+,\d+)\n([\s\S]*?)(?=\n\d+\n|$)/;
+            const s = slice.match(pattern)
+            const a =
+            {
+                index: s[1],
+                from:  s[2],
+                to:    s[3],
+                text:  s[4]
+            }
+            text += a.text+sep
+            self.#elements.push(a)
+        })
+        console.log(self.#elements)
+        return text     
+    }    
+
+    static replace(text)
+    {
+        const self = this
+        const sep  = `\n${self.#sep}\n`
+        const ta   = text.split(sep)
+        //ta.pop()
+
+        let result = ''
+        self.#elements.forEach(function(element, i)
+        {
+            result += `${element.index}\n${element.from} --> ${element.to}\n${ta[i]}\n`
+        })
+        self.#elements = []
+        return result
     }
 }
 

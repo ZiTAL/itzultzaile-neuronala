@@ -5,9 +5,10 @@ import Po from './Po'
 class ItzultzaileNeuronala
 {
     static #mode    = ''
-    static #limit   = 2500
+    static #limit   = 1000
     static #timeout = 5 * 1000    
     static #mkey    = '8d9016025eb0a44215c7f69c2e10861d'
+    static #sep     = '§'
 
     static get(input)
     {
@@ -18,7 +19,6 @@ class ItzultzaileNeuronala
         {
             const text  = self.preProccess(input)
             const parts = self.split(text)
-            console.log('parts', parts)
 
             self.serie(parts, 0, '')
             .then(function(response)
@@ -43,8 +43,6 @@ class ItzultzaileNeuronala
             mode = 'srt'
         else if(Po.is(input))
             mode = 'po'
-
-        console.log(mode)
 
         this.#mode = mode
     }
@@ -73,8 +71,11 @@ class ItzultzaileNeuronala
 
     static split(data)
     {
+        let self     = this
+        const sep    = `\n${self.#sep}\n`
+        const sepr   = new RegExp(sep)
         const limit  = this.#limit
-        let   chunks = data.split(/\n/)
+        let   chunks = data.split(sepr)
         const cl     = chunks.length
         
         let   parts  = ['']
@@ -82,7 +83,7 @@ class ItzultzaileNeuronala
         
         for(let i=0; i<cl; i++)
         {
-            chunks[i] = chunks[i]+"\n"
+            chunks[i] = chunks[i]+sep
             if(chunks[i].length+parts[j].length>limit)
             {
                     j++
@@ -90,7 +91,7 @@ class ItzultzaileNeuronala
             }
             parts[j] += chunks[i]
         }
-        parts[j] = parts[j].replace(/\n$/, '')
+        //parts.pop()
         return parts
     }
 
@@ -156,14 +157,18 @@ class ItzultzaileNeuronala
         if(Xml.is(input))
             text = Xml.getText(input)
 
+        if(Srt.is(input))
+            text = Srt.getText(input)            
+
         if(Po.is(input))
-            text = Po.getText(input)            
+            text = Po.getText(input)
 
         return text
     }
 
     static postProccess(response)
     {
+        let self = this
         const mode = this.getMode()
         switch(mode)
         {
@@ -178,6 +183,11 @@ class ItzultzaileNeuronala
             case 'po':
                 response = Po.replace(response)
                 break                
+
+            default:
+                const sep  = `\n${self.#sep}\n$`
+                const sepr = new RegExp(sep)
+                response = response.replace(sepr, '')
         }
         
         return response

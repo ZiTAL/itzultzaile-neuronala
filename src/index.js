@@ -1,4 +1,3 @@
-import             './styles/main.scss'
 import Editor from './js/Editor'
 
 Editor.diff

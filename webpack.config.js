@@ -72,7 +72,7 @@ module.exports =
         {
             title:      'Itzultzaile neuronala',
             filename:   'index.html',
-            template:   'src/monaco.html'
+            template:   'src/index.html'
         }),
         new MonacoWebpackPlugin(),
         new MiniCssExtractPlugin(

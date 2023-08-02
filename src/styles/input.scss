@@ -2,69 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-html, body
+.menu
 {
-    width:      100%;
-    height:     100%;
-    max-height: 100% !important;    
-}
-*/
-
-div.logo
-{
-    position:   absolute;
-    top:        0px;
-    left:       0px;
-    width:      30px;
-    height:     30px;
-    z-index:    2;
+    @apply flex;
 }
 
-div.logo a img
+.menu .form
 {
-    width:  30px;
-    height: 30px;
+    @apply w-full lg:text-center text-right;
 }
 
-div.form
+.menu .form input[type="submit"]
 {
-    height:         50px;
-    position:       absolute;
-    text-align:     center;
-    left:           0;
-    right:          0;
-    margin-left:    auto;
-    margin-right:   auto;
-    z-index:        1;
+    @apply bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded;
 }
 
-.editor
+#staticModal .close
 {
-    position:   absolute;
-    left:       0;
-    top:        30px;
-    width:      100%;
-    height:     100%;
-    max-height: 100% !important;
-    margin:     0;
-    padding:    0;
-/*
-    overflow:   hidden;
-*/
+    @apply text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white
 }
 
-.burger
+#staticModal .save
 {
-    @apply flex lg:order-2;
+    @apply text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800
+}
+
+#staticModal .reset
+{
+    @apply text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600
+}
+
+#staticModal .body
+{
+    @apply p-6 space-y-6;
+}
+
+#staticModal .footer
+{
+    @apply flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600;
 }
 
 .burger > button
 {
-    @apply inline-flex items-end p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-gray-200;
+    @apply text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-gray-200 p-2;
 }
 
 .burger > button > svg
 {
     @apply w-6 h-6;
+}
+
+.editor
+{
+    @apply h-screen
 }

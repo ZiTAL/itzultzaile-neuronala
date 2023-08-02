@@ -1,3 +1,4 @@
+import 'flowbite'
 import Editor from './js/Editor'
 
 Editor.diff

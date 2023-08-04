@@ -13,7 +13,7 @@
 <!-- menu -->
 <div class="menu">
     <div class="burger" data-modal-target="staticModal" data-modal-toggle="staticModal">
-        <button data-collapse-toggle="navbar" type="button" aria-controls="navbar" aria-expanded="false" data-modal-target="defaultModal" data-modal-toggle="defaultModal">
+        <button type="button" aria-expanded="false">
             <svg aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd">
                 </path>
@@ -22,7 +22,7 @@
     </div>
     <div class="github">
         <a href="https://github.com/ZiTAL/itzultzaile-neuronala">
-        <button data-collapse-toggle="navbar" type="button" aria-controls="navbar" aria-expanded="false">
+        <button type="button">
             <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12,2A10,10,0,0,0,8.84,21.5c.5.08.66-.23.66-.5V19.31C6.73,19.91,6.14,18,6.14,18A2.69,2.69,0,0,0,5,16.5c-.91-.62.07-.6.07-.6a2.1,2.1,0,0,1,1.53,1,2.15,2.15,0,0,0,2.91.83,2.16,2.16,0,0,1,.63-1.34C8,16.17,5.62,15.31,5.62,11.5a3.87,3.87,0,0,1,1-2.71,3.58,3.58,0,0,1,.1-2.64s.84-.27,2.75,1a9.63,9.63,0,0,1,5,0c1.91-1.29,2.75-1,2.75-1a3.58,3.58,0,0,1,.1,2.64,3.87,3.87,0,0,1,1,2.71c0,3.82-2.34,4.66-4.57,4.91a2.39,2.39,0,0,1,.69,1.85V21c0,.27.16.59.67.5A10,10,0,0,0,12,2Z">
                 </path>
@@ -42,6 +42,7 @@
         <input type="submit">
     </div>
 </div>
+
 <!-- Main modal -->
 <div id="staticModal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-2xl max-h-full">        
@@ -61,52 +62,21 @@
             </div>
             <!-- Modal body -->
             <div class="body">
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    <form>
+                <form>
                     <ul>
-                        <li>
-                            <p>
-                                <input name="ia_type" type="radio" value="auto"><span>Auto</span>
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                <input name="ia_type" type="radio" value="text"><span>Text</span>
-                            </p>
-                        </li>                        
-                        <li>
-                            <p>
-                                <input name="ia_type" type="radio" value="po"><span>Po</span>
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                <input name="ia_type" type="radio" value="srt"><span>Srt</span>
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                <input name="ia_type" type="radio" value="xml"><span>Xml</span>
-                                <p class="xml">
-                                    <input type="checkbox" value="node_value"><span>Node Values</span>
-                                    <br>
-                                    <input type="checkbox" value="node_attributes"><span>Node Attributes</span>
-                                </p>
-                            </p>
-                        </li>                             
+                        <li><p><input name="mode" type="radio" value="auto" checked><span>Auto</span></p></li>
+                        <li><p><input name="mode" type="radio" value="text"><span>Text</span></p></li>                        
+                        <li><p><input name="mode" type="radio" value="po"><span>Po</span></p></li>
+                        <li><p><input name="mode" type="radio" value="srt"><span>Srt</span></p></li>
+                        <li><p><input name="mode" type="radio" value="xml"><span>Xml</span></p></li>
+                        <li><p><input name="mode" type="radio" value="xml_attr"><span>Xml: Attributes</span></p></li>
+                        <li><p><input name="mode" type="radio" value="xml_node"><span>Xml: Node Values</span></p></li>
                     </ul>
-                    </form>
-                </p>
+                </form>
             </div>
             <!-- Modal footer -->
             <div class="footer">
-                <button data-modal-hide="staticModal" type="button" class="save">Save</button>
-<!--
-                <button data-modal-hide="staticModal" type="button" class="reset">Reset</button>
-                <a href="https://github.com/ZiTAL/itzultzaile-neuronala" class="text-right">
-                    <img src="github.png" alt="github logo" title="github logo">
-                </a>                
--->                
+                <button data-modal-hide="staticModal" class="save">Save</button>
             </div>
         </div>
     </div>

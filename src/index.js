@@ -40,3 +40,10 @@ document.querySelector('input[type="submit"]').addEventListener('click', functio
     e.preventDefault()
     Editor.run()
 })
+
+document.querySelector('#staticModal .footer .save').addEventListener('click', function(e)
+{
+    e.preventDefault()
+    let mode = document.querySelector('#staticModal form input[name="mode"]').value
+    console.log('mode', mode)
+})

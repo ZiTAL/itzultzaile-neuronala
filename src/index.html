@@ -10,6 +10,7 @@
     <link href="./style.css" rel="stylesheet">
 </head>
 <body>
+<div class="header">
 <!-- menu -->
 <div class="menu">
     <div class="burger" data-modal-target="staticModal" data-modal-toggle="staticModal">
@@ -31,16 +32,19 @@
         </a>
     </div>
     <div class="form">
-        <select>
-            <option value="es2eu">ES ➔ EU</option>
-            <option value="eu2es">EU ➔ ES</option>
-            <option value="fr2eu">FR ➔ EU</option>
-            <option value="eu2fr">EU ➔ FR</option>
-            <option value="en2eu">EN ➔ EU</option>
-            <option value="eu2en">EU ➔ EN</option>
-        </select>
-        <input type="submit">
+        <form>
+            <select>
+                <option value="es2eu">ES ➔ EU</option>
+                <option value="eu2es">EU ➔ ES</option>
+                <option value="fr2eu">FR ➔ EU</option>
+                <option value="eu2fr">EU ➔ FR</option>
+                <option value="en2eu">EN ➔ EU</option>
+                <option value="eu2en">EU ➔ EN</option>
+            </select>
+            <input type="submit">
+        </form>
     </div>
+</div>
 </div>
 
 <!-- Main modal -->
@@ -49,15 +53,12 @@
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">                
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Translation mode:
-                </h3>         
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3>Translation mode: </h3>         
                 <button type="button" class="close" data-modal-hide="staticModal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
-                    <span class="sr-only">Close modal</span>
                 </button>
             </div>
             <!-- Modal body -->
@@ -65,12 +66,12 @@
                 <form>
                     <ul>
                         <li><p><input name="mode" type="radio" value="auto" checked><span>Auto</span></p></li>
-                        <li><p><input name="mode" type="radio" value="text"><span>Text</span></p></li>                        
-                        <li><p><input name="mode" type="radio" value="po"><span>Po</span></p></li>
-                        <li><p><input name="mode" type="radio" value="srt"><span>Srt</span></p></li>
-                        <li><p><input name="mode" type="radio" value="xml"><span>Xml</span></p></li>
-                        <li><p><input name="mode" type="radio" value="xml_attr"><span>Xml: Attributes</span></p></li>
-                        <li><p><input name="mode" type="radio" value="xml_node"><span>Xml: Node Values</span></p></li>
+                        <li><p><input name="mode" type="radio" value="text">        <span>Text</span></p></li>                        
+                        <li><p><input name="mode" type="radio" value="po">          <span>Po</span></p></li>
+                        <li><p><input name="mode" type="radio" value="srt">         <span>Srt</span></p></li>
+                        <li><p><input name="mode" type="radio" value="xml">         <span>Xml</span></p></li>
+                        <li><p><input name="mode" type="radio" value="xml_attr">    <span>Xml: Attributes</span></p></li>
+                        <li><p><input name="mode" type="radio" value="xml_node">    <span>Xml: Node Values</span></p></li>
                     </ul>
                 </form>
             </div>
@@ -81,5 +82,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

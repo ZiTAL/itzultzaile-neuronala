@@ -35,7 +35,7 @@ FR: La traduction apparaîtra ici.
 `
 )
 
-document.querySelector('input[type="submit"]').addEventListener('click', function(e)
+document.querySelector('.header .menu form input[type="submit"]').addEventListener('click', function(e)
 {
     e.preventDefault()
     Editor.run()
@@ -44,6 +44,25 @@ document.querySelector('input[type="submit"]').addEventListener('click', functio
 document.querySelector('#staticModal .footer .save').addEventListener('click', function(e)
 {
     e.preventDefault()
-    let mode = document.querySelector('#staticModal form input[name="mode"]').value
-    console.log('mode', mode)
+    console.log('mode', Mode.get())
 })
+
+class Mode
+{
+    static #modes = ['auto', 'text', 'po', 'srt', 'xml', 'xml_attr', 'xml_node']
+
+    static get()
+    {
+        let mode = document.querySelector('#staticModal form input[name="mode"]:checked').value
+        if(!this.isAvailable(mode))
+            mode = this.#modes[0]
+        return mode
+    }
+    
+    static isAvailable(mode)
+    {
+        if(this.#modes.indexOf(mode)!==-1)
+            return true
+        return false
+    }    
+}

@@ -37,17 +37,37 @@
     @apply p-6 space-y-6;
 }
 
+#staticModal .body span
+{
+    @apply pl-5;
+}
+
+#staticModal .body .xml
+{
+    @apply pl-10;
+}
+
 #staticModal .footer
 {
     @apply flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600;
 }
 
-.burger > button
+.menu button
 {
-    @apply text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-gray-200 p-2;
+    @apply hover:bg-gray-100 focus:outline-none focus:ring-gray-200 p-2;
 }
 
-.burger > button > svg
+.menu .burger button
+{
+    @apply text-gray-500;
+}
+
+.menu .github button
+{
+    @apply text-black;
+}
+
+.menu svg
 {
     @apply w-6 h-6;
 }

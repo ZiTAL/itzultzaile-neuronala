@@ -1,5 +1,6 @@
 import 'flowbite'
 import Editor from './js/Editor'
+import Mode   from './js/Mode'
 
 Editor.diff
 (
@@ -44,25 +45,7 @@ document.querySelector('.header .menu form input[type="submit"]').addEventListen
 document.querySelector('#staticModal .footer .save').addEventListener('click', function(e)
 {
     e.preventDefault()
-    console.log('mode', Mode.get())
+    const mode = Mode.getFormValue()
+    Mode.set(mode)
 })
-
-class Mode
-{
-    static #modes = ['auto', 'text', 'po', 'srt', 'xml', 'xml_attr', 'xml_node']
-
-    static get()
-    {
-        let mode = document.querySelector('#staticModal form input[name="mode"]:checked').value
-        if(!this.isAvailable(mode))
-            mode = this.#modes[0]
-        return mode
-    }
-    
-    static isAvailable(mode)
-    {
-        if(this.#modes.indexOf(mode)!==-1)
-            return true
-        return false
-    }    
-}
+document.querySelector(`${Mode.input}[value="${Mode.get()}"]`).checked = true

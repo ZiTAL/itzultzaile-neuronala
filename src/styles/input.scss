@@ -47,43 +47,43 @@
     @apply h-screen;
 }
 
-#staticModal h3
+#translationModal h3
 {
     @apply text-xl font-semibold text-gray-900 dark:text-white;
 }
 
-#staticModal .close
+#translationModal .close
 {
     @apply text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white
 }
 
-#staticModal .save
+#translationModal .save
 {
     @apply text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800
 }
 
-#staticModal .body
+#translationModal .body
 {
     @apply p-6 space-y-6;
 }
 
-#staticModal .body span
+#translationModal .body span
 {
     @apply pl-5;
 }
 
-#staticModal .body .xml
+#translationModal .body .xml
 {
     @apply pl-10;
 }
 
-#staticModal .body > form > ul
+#translationModal .body > form > ul
 {
     @apply pl-10;
     @apply text-base leading-relaxed text-gray-500 dark:text-gray-400;
 }
 
-#staticModal .footer
+#translationModal .footer
 {
     @apply flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 justify-center;
 }

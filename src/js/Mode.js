@@ -1,7 +1,7 @@
 class Mode
 {
     static #modes = ['auto', 'text', 'po', 'srt', 'xml', 'xml_attr', 'xml_node']
-    static input  = '#staticModal form input[name="mode"]'
+    static input  = '#translationModal form input[name="mode"]'
 
     static get()
     {

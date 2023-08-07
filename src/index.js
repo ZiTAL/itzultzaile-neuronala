@@ -42,7 +42,7 @@ document.querySelector('.header .menu form input[type="submit"]').addEventListen
     Editor.run()
 })
 
-document.querySelector('#staticModal .footer .save').addEventListener('click', function(e)
+document.querySelector('#translationModal .footer .save').addEventListener('click', function(e)
 {
     e.preventDefault()
     const mode = Mode.getFormValue()

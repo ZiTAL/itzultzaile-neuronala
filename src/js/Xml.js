@@ -1,3 +1,5 @@
+import Mode   from './Mode'
+
 class Xml
 {
     static #dom      = []
@@ -29,6 +31,7 @@ class Xml
         const dom      = parser.parseFromString(input, "text/xml")
         const nodes    = dom.getElementsByTagName("*")
         const sep      = `\n${self.#sep}\n`
+        const mode     = Mode.get()
 
         let   str      = ''
         let   elements = []
@@ -41,7 +44,7 @@ class Xml
                 for(let j=0; j<node.childNodes.length; j++)
                 {
                     const n = node.childNodes[j]
-                    if(n.nodeType===3 && n.nodeValue.trim()!=='')      // 3 testua
+                    if(n.nodeType===3 && n.nodeValue.trim()!=='' && (mode==='xml' || mode==='xml_node')) // 3 testua
                     {
                         str+=n.nodeValue+sep
                         elements.push(
@@ -59,8 +62,7 @@ class Xml
                             node: n
                         })                        
                     }
-/*
-                    else if(n.nodeType===1 && n.hasAttributes())       // 1 nodo normala
+                    else if(n.nodeType===1 && n.hasAttributes() && (mode==='xml' || mode==='xml_attr')) // 1 nodo normala
                     {
                         const attributes = n.attributes;
                         for (let k = 0; k < attributes.length; k++)
@@ -73,8 +75,7 @@ class Xml
                                 node:      n
                             })                    
                         }
-                    }
-*/                    
+                    } 
                 }
             }
         }

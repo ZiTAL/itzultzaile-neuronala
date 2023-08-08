@@ -1,6 +1,6 @@
 class Mode
 {
-    static #modes = ['auto', 'text', 'po', 'srt', 'xml', 'xml_attr', 'xml_node']
+    static #modes = ['xml', 'xml_attr', 'xml_node']
     static input  = '#translationModal form input[name="mode"]'
 
     static get()
@@ -15,9 +15,18 @@ class Mode
 
     static getFormValue()
     {
-        let mode = document.querySelector(`${this.input}:checked`).value
-        if(!this.isAvailable(mode))
+        let mode
+        try
+        {
+            mode = document.querySelector(`${this.input}:checked`).value
+            if(!this.isAvailable(mode))
+                mode = this.getDefault()            
+        }
+        catch(e)
+        {
             mode = this.getDefault()
+        }
+        
         return mode
     }
 

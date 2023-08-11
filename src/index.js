@@ -1,6 +1,7 @@
 import 'flowbite'
 import Editor from './js/Editor'
 import Mode   from './js/Mode'
+import Save   from './js/Save'
 
 Editor.diff
 (
@@ -49,3 +50,5 @@ document.querySelector('#translationModal .footer .save').addEventListener('clic
     Mode.set(mode)
 })
 document.querySelector(`${Mode.input}[value="${Mode.get()}"]`).checked = true
+
+console.log(Save.get())

@@ -1,6 +1,6 @@
 class Server
 {
-    static #url = 'http://localhost:8000/'
+    static #url = 'index.php'
 
     static get(code)
     {

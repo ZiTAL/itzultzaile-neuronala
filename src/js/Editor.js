@@ -83,6 +83,16 @@ class Editor
 			self.editor.getModifiedEditor().setValue(modified)
 		})		
 	}
+
+	static getOriginal()
+	{
+		return this.editor.getOriginalEditor().getValue()
+	}
+
+	static getTranslate()
+	{
+		return this.editor.getModifiedEditor().getValue()
+	}
 }
 
 export default Editor

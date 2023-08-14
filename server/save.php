@@ -18,8 +18,8 @@ class Save
         $folder = realpath(__DIR__."/../saves/{$code}");
         $result =
         [
-            'original'  => file_get_contents("{$folder}/{$code}/original"),
-            'translate' => file_get_contents("{$folder}/{$code}/translate")
+            'original'  => file_get_contents("{$folder}/original"),
+            'translate' => file_get_contents("{$folder}/translate")
         ];
         return $result;
     }

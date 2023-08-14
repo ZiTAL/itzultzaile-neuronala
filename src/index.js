@@ -1,11 +1,10 @@
 import 'flowbite'
 import Editor from './js/Editor'
 import Mode   from './js/Mode'
-import Save   from './js/Save'
+import Server from './js/Server'
 
-Editor.diff
-(
-`EU:
+let code     = getCode()
+let original = `EU:
 Itzultzeko:
 1. Submit botoia jo
 2. Ctrl + Enter
@@ -28,19 +27,71 @@ Pour revenir :
 1. Appuyez sur le bouton Envoyer
 2. Ctrl + Enter
 3. Cliquez sur le bouton droit de la souris -> translate
-`,
-
-`EU: Hemen itzulpena agertuko da.
+`
+let translate = `EU: Hemen itzulpena agertuko da.
 ES: Aquí aparecerá la traducción.
 EN: The translation will appear here.
 FR: La traduction apparaîtra ici.
 `
-)
+if(!code)
+    Editor.diff(original, translate)
+else
+{
+    Server.get(code)
+    .then(function(data)
+    {
+        Editor.diff(data.original, data.translate)
+    })
+    .catch(function(e)
+    {
+        console.error(e)
+    })
+}
 
-document.querySelector('.header .menu form input[type="submit"]').addEventListener('click', function(e)
+document.querySelector('.header .menu form .translate').addEventListener('click', function(e)
 {
     e.preventDefault()
     Editor.run()
+})
+
+document.querySelector('.header .menu form .save').addEventListener('click', function(e)
+{
+    e.preventDefault()
+    const original  = Editor.getOriginal()
+    const translate = Editor.getTranslate()
+    if(!code)
+    {
+        Server.createCode()
+        .then(function(data)
+        {
+            code = data.code
+            Server.set(data.code, original, translate)
+            .then(function()
+            {
+                window.location.href = "?code="+code
+            })
+            .catch(function(e)
+            {
+                console.error(e)
+            })
+        })
+        .catch(function(e)
+        {
+            console.error(e)
+        })
+    }
+    else
+    {
+        Server.set(code, original, translate)
+        .then(function()
+        {
+
+        })
+        .catch(function(e)
+        {
+            console.error(e)
+        })
+    }
 })
 
 document.querySelector('#translationModal .footer .save').addEventListener('click', function(e)
@@ -51,4 +102,16 @@ document.querySelector('#translationModal .footer .save').addEventListener('clic
 })
 document.querySelector(`${Mode.input}[value="${Mode.get()}"]`).checked = true
 
-console.log(Save.get())
+function getCode()
+{
+    try
+    {
+        const url  = new URL(window.location.href)
+        const code = url.searchParams.get('code')
+        return code
+    }
+    catch(e)
+    {
+        return false
+    }
+}

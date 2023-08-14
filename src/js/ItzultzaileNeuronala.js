@@ -1,6 +1,7 @@
-import Xml from './Xml'
-import Srt from './Srt'
-import Po from './Po'
+import Xml     from './Xml'
+import Srt     from './Srt'
+import Po      from './Po'
+import Process from './Process'
 
 class ItzultzaileNeuronala
 {
@@ -8,7 +9,8 @@ class ItzultzaileNeuronala
     static #limit   = 1000
     static #timeout = 5 * 1000    
     static #mkey    = '8d9016025eb0a44215c7f69c2e10861d'
-    static #sep     = '§'
+    static #sep     = '§'    
+    static #total_parts = 0
 
     static get(input)
     {
@@ -19,6 +21,10 @@ class ItzultzaileNeuronala
         {
             const text  = self.preProccess(input)
             const parts = self.split(text)
+
+            Process.create()
+            Process.setLen(parts.length)
+            Process.show()
 
             self.serie(parts, 0, '')
             .then(function(response)
@@ -127,6 +133,9 @@ class ItzultzaileNeuronala
     {
         let self = this
         timeout = (i===0)?0:self.#timeout
+
+        Process.setIndex(i)
+        Process.show()
 
         return new Promise(function(resolve, reject)
         {

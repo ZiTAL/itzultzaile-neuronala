@@ -17,7 +17,6 @@ class Srt
 
     static getText(input)
     {
-        console.log('getText')
         let self     = this
         let text     = ''
         let pattern  = /(\d+)\n(\d+:\d+:\d+,\d+)\s-->\s(\d+:\d+:\d+,\d+)\n([\s\S]*?)(?=\n\d+\n|$)/g;
@@ -38,7 +37,6 @@ class Srt
             text += a.text+sep
             self.#elements.push(a)
         })
-        console.log(self.#elements)
         return text     
     }    
 

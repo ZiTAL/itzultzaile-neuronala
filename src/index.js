@@ -1,7 +1,8 @@
 import 'flowbite'
-import Editor from './js/Editor'
-import Mode   from './js/Mode'
-import Server from './js/Server'
+import Editor  from './js/Editor'
+import Mode    from './js/Mode'
+import Server  from './js/Server'
+import Process from './js/Process'
 
 let code     = getCode()
 let original = `EU:
@@ -100,6 +101,14 @@ document.querySelector('#translationModal .footer .save').addEventListener('clic
     const mode = Mode.getFormValue()
     Mode.set(mode)
 })
+
+document.querySelector('#processModal button').addEventListener('click', function(e)
+{
+    e.preventDefault()
+    Process.stop()
+})
+
+
 document.querySelector(`${Mode.input}[value="${Mode.get()}"]`).checked = true
 
 function getCode()

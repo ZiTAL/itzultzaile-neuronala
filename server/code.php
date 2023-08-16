@@ -23,8 +23,8 @@ class Code
 
     public static function clean($code)
     {
-        $characters = self::$characters;
-        $code       = preg_replace("/{$characters}/", '', $code);
+        $regex = "/[^".self::$characters."]+/";
+        $code  = preg_replace($regex, '', $code);
         return $code;
     }
 

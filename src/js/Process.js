@@ -1,8 +1,9 @@
-import { Modal } from 'flowbite';
+import { Modal }            from 'flowbite';
+import ItzultzaileNeuronala from './ItzultzaileNeuronala'
 
 class Process
 {
-  static #len = 0
+  static #len      = 0
   static #selector = '#processModal'
   static #instance = null
 
@@ -13,7 +14,11 @@ class Process
 
   static setIndex(i)
   {
-    //document.querySelector(`${this.#selector} .body`).innerHTML = `${i + 1} / ${this.#len}`
+    const body = document.querySelector(`${this.#selector} .body`)
+    while(body.hasChildNodes())
+      body.removeChild(body.firstChild)
+
+    body.appendChild(document.createTextNode(`${i + 1} / ${this.#len}`))
   }
 
   static show()
@@ -26,27 +31,39 @@ class Process
     this.#instance.hide()
   }
 
-  static create()
+  static create(len)
   {
-    const element = document.querySelector(this.#selector);
+    this.setLen(len)
 
-    const options = {
-      placement: 'bottom-right',
-      backdrop: 'dynamic',
+    const options =
+    {
+      placement:       'center-center',
+      backdrop:        'dynamic',
       backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
-      closable: true,
-      onHide: () => {
+      closable:        false,
+      onHide: () =>
+      {
           console.log('modal is hidden');
       },
-      onShow: () => {
+      onShow: () =>
+      {
           console.log('modal is shown');
       },
-      onToggle: () => {
+      onToggle: () =>
+      {
           console.log('modal has been toggled');
       }
-    };
-    
-    this.#instance = new Modal(element, options);    
+    }
+
+    const element  = document.querySelector(this.#selector)    
+    this.#instance = new Modal(element, options)
+    this.show()
+  }
+
+  static stop()
+  {
+    ItzultzaileNeuronala.setStatus('stopped')
+    this.hide()
   }
 }
 

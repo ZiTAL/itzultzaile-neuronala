@@ -9,12 +9,13 @@ class ItzultzaileNeuronala
     static #limit   = 1000
     static #timeout = 5 * 1000    
     static #mkey    = '8d9016025eb0a44215c7f69c2e10861d'
-    static #sep     = '§'    
-    static #total_parts = 0
+    static #sep     = '§'
+    static #status  = 'ready'
 
     static get(input)
     {
         let self = this
+        self.setStatus('processing')
         self.setMode(input)
 
         return new Promise(function(resolve, reject)
@@ -22,14 +23,14 @@ class ItzultzaileNeuronala
             const text  = self.preProccess(input)
             const parts = self.split(text)
 
-            Process.create()
-            Process.setLen(parts.length)
-            Process.show()
+            Process.create(parts.length)
 
             self.serie(parts, 0, '')
             .then(function(response)
             {
                 response = self.postProccess(response)
+                Process.hide()
+                self.setStatus('ready')
                 resolve(response)
             })
             .catch(function(e)
@@ -135,28 +136,32 @@ class ItzultzaileNeuronala
         timeout = (i===0)?0:self.#timeout
 
         Process.setIndex(i)
-        Process.show()
 
         return new Promise(function(resolve, reject)
         {
-            window.setTimeout(function()
+            if(self.getStatus()==='stopped')
+                resolve(result)
+            else
             {
-                self.request(parts[i])
-                .then(function(response)
+                window.setTimeout(function()
                 {
-                    result += response
-                    i++
-                    if(typeof parts[i]!=='undefined')
-                        resolve(self.serie(parts, i, result, timeout))
-                    else
-                        resolve(result)
-                })
-                .catch(function(e)
-                {
-                    console.error('serie', e)
-                    reject(e)
-                })
-            }, timeout)
+                    self.request(parts[i])
+                    .then(function(response)
+                    {
+                        result += response
+                        i++
+                        if(typeof parts[i]!=='undefined')
+                            resolve(self.serie(parts, i, result, timeout))
+                        else
+                            resolve(result)
+                    })
+                    .catch(function(e)
+                    {
+                        console.error('serie', e)
+                        reject(e)
+                    })
+                }, timeout)
+            }
         })
     }
 
@@ -200,6 +205,16 @@ class ItzultzaileNeuronala
         }
         
         return response
+    }
+
+    static setStatus(status)
+    {
+        this.#status = status
+    }
+
+    static getStatus()
+    {
+        return this.#status
     }
 }
 

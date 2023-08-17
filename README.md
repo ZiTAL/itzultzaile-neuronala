@@ -3,7 +3,7 @@ Eusko Jaurlaritzaren itzultzaile automatikoa erabiliko dugu gaztelera, ingeleses
 https://www.euskadi.eus/itzuli/
 
 # onartutako formatuak
-testua, xml, srt, po
+testua, xml, srt, po, ass
 
 # instalatzeko
 npm install

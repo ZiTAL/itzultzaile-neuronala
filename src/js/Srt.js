@@ -45,12 +45,12 @@ class Srt
         const self = this
         const sep  = `\n${self.#sep}\n`
         const ta   = text.split(sep)
-        //ta.pop()
 
         let result = ''
         self.#elements.forEach(function(element, i)
         {
-            result += `${element.index}\n${element.from} --> ${element.to}\n${ta[i]}\n`
+            result += `${element.index}\n${element.from} --> ${element.to}\n`
+            result += (ta[i]!==undefined)?`${ta[i]}\n`:`${element.text}\n`
         })
         self.#elements = []
         return result

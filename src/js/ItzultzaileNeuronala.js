@@ -2,6 +2,7 @@ import Xml     from './Xml'
 import Srt     from './Srt'
 import Po      from './Po'
 import Ass     from './Ass'
+import Ini     from './Ini'
 
 import Process from './Process'
 
@@ -54,6 +55,10 @@ class ItzultzaileNeuronala
             mode = 'po'
         else if(Ass.is(input))
             mode = 'ass'
+        else if(Ini.is(input))
+            mode = 'ini'
+
+        console.log('setMode', mode)
 
         this.#mode = mode
     }
@@ -184,6 +189,9 @@ class ItzultzaileNeuronala
         if(Ass.is(input))
             text = Ass.getText(input)            
 
+        if(Ini.is(input))
+            text = Ini.getText(input)
+
         return text
     }
 
@@ -207,7 +215,11 @@ class ItzultzaileNeuronala
 
             case 'ass':
                 response = Ass.replace(response)
-                break                                
+                break
+                
+            case 'ini':
+                response = Ini.replace(response)
+                break                
 
             default:
                 const sep  = `\n${self.#sep}\n$`

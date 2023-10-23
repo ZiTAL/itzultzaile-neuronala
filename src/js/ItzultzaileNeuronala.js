@@ -1,12 +1,12 @@
 import Config  from './Config'
-import Xml     from './Xml'
-import Srt     from './Srt'
-import Po      from './Po'
-import Ass     from './Ass'
-import Ini     from './Ini'
-import Text    from './Text'
-
 import Process from './Process'
+
+import Xml     from './ext/Xml'
+import Srt     from './ext/Srt'
+import Po      from './ext/Po'
+import Ass     from './ext/Ass'
+import Ini     from './ext/Ini'
+import Text    from './ext/Text'
 
 class ItzultzaileNeuronala
 {

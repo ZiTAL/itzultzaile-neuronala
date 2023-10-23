@@ -1,5 +1,5 @@
-import Config from './Config'
-import Mode   from './Mode'
+import Config from '../Config'
+import Mode   from '../Mode'
 
 class Xml
 {

@@ -1,8 +1,10 @@
+import Config  from './Config'
 import Xml     from './Xml'
 import Srt     from './Srt'
 import Po      from './Po'
 import Ass     from './Ass'
 import Ini     from './Ini'
+import Text    from './Text'
 
 import Process from './Process'
 
@@ -12,7 +14,6 @@ class ItzultzaileNeuronala
     static #limit   = 1000
     static #timeout = 5 * 1000    
     static #mkey    = '8d9016025eb0a44215c7f69c2e10861d'
-    static #sep     = '§'
     static #status  = 'ready'
 
     static get(input)
@@ -57,6 +58,8 @@ class ItzultzaileNeuronala
             mode = 'ass'
         else if(Ini.is(input))
             mode = 'ini'
+        else if(Text.is(input))
+            mode = 'text'
 
         console.log('setMode', mode)
 
@@ -88,8 +91,7 @@ class ItzultzaileNeuronala
     static split(data)
     {
         let self     = this
-        const sep    = `\n${self.#sep}\n`
-        const sepr   = new RegExp(sep)
+        const sepr   = new RegExp(Config.sep)
         const limit  = this.#limit
         let   chunks = data.split(sepr)
         const cl     = chunks.length
@@ -99,7 +101,7 @@ class ItzultzaileNeuronala
         
         for(let i=0; i<cl; i++)
         {
-            chunks[i] = chunks[i]+sep
+            chunks[i] = chunks[i]+Config.sep
             if(chunks[i].length+parts[j].length>limit)
             {
                     j++
@@ -107,7 +109,7 @@ class ItzultzaileNeuronala
             }
             parts[j] += chunks[i]
         }
-        //parts.pop()
+        parts = parts.filter(part => part)
         return parts
     }
 
@@ -180,17 +182,20 @@ class ItzultzaileNeuronala
         if(Xml.is(input))
             text = Xml.getText(input)
 
-        if(Srt.is(input))
+        else if(Srt.is(input))
             text = Srt.getText(input)            
 
-        if(Po.is(input))
+        else if(Po.is(input))
             text = Po.getText(input)
 
-        if(Ass.is(input))
+        else if(Ass.is(input))
             text = Ass.getText(input)            
 
-        if(Ini.is(input))
+        else if(Ini.is(input))
             text = Ini.getText(input)
+
+        else if(Text.is(input))
+            text = Text.getText(input)            
 
         return text
     }
@@ -219,10 +224,14 @@ class ItzultzaileNeuronala
                 
             case 'ini':
                 response = Ini.replace(response)
+                break
+                
+            case 'text':
+                response = Text.replace(response)
                 break                
 
             default:
-                const sep  = `\n${self.#sep}\n$`
+                const sep  = `{Config.sep}$`
                 const sepr = new RegExp(sep)
                 response = response.replace(sepr, '')
         }

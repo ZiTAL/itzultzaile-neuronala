@@ -1,7 +1,8 @@
+import Config  from './Config'
+
 class Ass
 {
     static #elements = []
-    static #sep      = '§'
 
     static is(str)
     {
@@ -45,11 +46,10 @@ class Ass
         })
         
         let text  = ''
-        const sep = `\n${self.#sep}\n`
         r.forEach(function(line)
         {
             if(line.type === 'dialogue')
-                text += line.part_02+sep
+                text += line.part_02+Config.sep
         })
 
         this.#elements = r
@@ -60,8 +60,7 @@ class Ass
     static replace(text)
     {
         const self = this
-        const sep  = `\n${self.#sep}\n`
-        const ta   = text.split(sep)
+        const ta   = text.split(Config.sep)
 
         let i      = 0
         let result = ''

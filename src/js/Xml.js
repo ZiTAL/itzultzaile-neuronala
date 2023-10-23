@@ -1,10 +1,10 @@
+import Config from './Config'
 import Mode   from './Mode'
 
 class Xml
 {
     static #dom      = []
     static #elements = []
-    static #sep      = '§'
 
     static is(str)
     {
@@ -30,7 +30,6 @@ class Xml
         const parser   = new DOMParser()
         const dom      = parser.parseFromString(input, "text/xml")
         const nodes    = dom.getElementsByTagName("*")
-        const sep      = `\n${self.#sep}\n`
         const mode     = Mode.get()
 
         let   str      = ''
@@ -46,7 +45,7 @@ class Xml
                     const n = node.childNodes[j]
                     if(n.nodeType===3 && n.nodeValue.trim()!=='' && (mode==='xml' || mode==='xml_node')) // 3 testua
                     {
-                        str+=n.nodeValue+sep
+                        str+=n.nodeValue+Config.sep
                         elements.push(
                         {
                             type: 'node',
@@ -55,7 +54,7 @@ class Xml
                     }
                     else if(n.nodeType===4 && n.nodeValue.trim()!=='') // 4 CDATA
                     {
-                        str+=n.nodeValue+sep
+                        str+=n.nodeValue+Config.sep
                         elements.push(
                         {
                             type: 'cdata',
@@ -67,7 +66,7 @@ class Xml
                         const attributes = n.attributes;
                         for (let k = 0; k < attributes.length; k++)
                         {
-                            str+=attributes.item(k).value+sep
+                            str+=attributes.item(k).value+Config.sep
                             elements.push(
                             {
                                 type:      'attribute',
@@ -92,7 +91,7 @@ class Xml
         const ele  = self.#elements
         const str  = text.split(/\n/).filter(function(s)
         {
-            return (s!==self.#sep)
+            return (s!==Config.sep)
         })                    
         
         for(let i=0; i<ele.length; i++)

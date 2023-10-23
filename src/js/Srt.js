@@ -1,7 +1,8 @@
+import Config  from './Config'
+
 class Srt
 {
     static #elements = []
-    static #sep      = '§'
     
     static is(str)
     {
@@ -20,7 +21,6 @@ class Srt
         let self     = this
         let text     = ''
         let pattern  = /(\d+)\n(\d+:\d+:\d+,\d+)\s-->\s(\d+:\d+:\d+,\d+)\n([\s\S]*?)(?=\n\d+\n|$)/g;
-        const sep    = `\n${self.#sep}\n`
         const slices = input.match(pattern)
 
         slices.forEach(function(slice)
@@ -34,17 +34,16 @@ class Srt
                 to:    s[3],
                 text:  s[4]
             }
-            text += a.text+sep
+            text += a.text+Config.sep
             self.#elements.push(a)
         })
         return text     
-    }    
+    }
 
     static replace(text)
     {
         const self = this
-        const sep  = `\n${self.#sep}\n`
-        const ta   = text.split(sep)
+        const ta   = text.split(Config.sep)
 
         let result = ''
         self.#elements.forEach(function(element, i)

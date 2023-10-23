@@ -1,7 +1,8 @@
+import Config  from './Config'
+
 class Po
 {
     static #elements = []
-    static #sep      = '§'
 
     static is(str)
     {
@@ -79,7 +80,6 @@ class Po
         })
         
         let text  = ''
-        const sep = `\n${self.#sep}\n`
         r.forEach(function(line)
         {
             if(typeof line.msgid !== 'undefined' && typeof line.msgstr !== 'undefined')
@@ -88,7 +88,7 @@ class Po
                 {
                     text += l+" "
                 })
-                text += sep
+                text += Config.sep
             }
         })
 
@@ -100,8 +100,7 @@ class Po
     static replace(text)
     {
         const self = this
-        const sep  = `\n${self.#sep}\n`
-        const ta   = text.split(sep)
+        const ta   = text.split(Config.sep)
         let i      = 0
         let result = ''
 

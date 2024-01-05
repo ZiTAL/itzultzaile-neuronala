@@ -12,7 +12,7 @@ class ItzultzaileNeuronala
 {
     static #mode    = ''
     static #limit   = 1000
-    static #timeout = 5 * 1000    
+    static #timeout = 10 * 1000    
     static #mkey    = '8d9016025eb0a44215c7f69c2e10861d'
     static #status  = 'ready'
 

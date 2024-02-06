@@ -15,4 +15,4 @@ npm run dev
 npm run build
 
 # online
-https://itzultzaile-neuronala.zital.freemyip.com/
+https://itzultzaile-neuronala.zital.eus

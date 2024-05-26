@@ -6,6 +6,7 @@ class Ini
 
     static is(str)
     {
+
         if (typeof str !== 'string')
             return false
 /*
@@ -16,17 +17,12 @@ AppName = My Application
 Version = 1.0
 Author = John Doe
 */
-        let lines = str.split(/\n/)
-        // ; eta hutsuniek kendu
-        lines     = lines.filter((line) =>
-        {
-            if(line.match(/^\s*;/) || line.trim()==='')
-                return false
-            return true
-        })
-        str = lines.join("\n")
-        const regex = /\s*\[[^\]]+\]\s*\n\s*[^\s=]+\s*/im
-        return regex.test(str)
+        const section_pattern = /^\s*\[([^\]]+)\]\s*$/gm;
+        const key_pattern     = /^\s*([^=]+?)\s*=\s*(.*?)\s*$/gm;
+        const has_section     = section_pattern.test(str);
+        const has_key         = key_pattern.test(str);
+        return has_section || has_key;
+
     }
 
     static getText(input)

@@ -91,8 +91,10 @@ class Xml
         const ele  = self.#elements
         const str  = text.split(/\n/).filter(function(s)
         {
-            return (s!==Config.sep)
-        })                    
+            return (s.trim()!==Config.sep.trim())
+        })       
+        console.log(Config.sep)
+        console.log(str)             
         
         for(let i=0; i<ele.length; i++)
         {

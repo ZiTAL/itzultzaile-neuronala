@@ -235,6 +235,9 @@ class ItzultzaileNeuronala
                 const sepr = new RegExp(sep)
                 response = response.replace(sepr, '')
         }
+
+        const sep_r = new RegExp(Config.sep.trim(), 'gm')
+        response    = response.replace(sep_r, '')
         
         return response
     }

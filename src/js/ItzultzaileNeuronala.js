@@ -12,7 +12,7 @@ class ItzultzaileNeuronala
 {
     static #mode    = ''
     static #limit   = 1000
-    static #timeout = 15 * 1000    
+    static #timeout = 15 * 1000
     static #mkey    = '8d9016025eb0a44215c7f69c2e10861d'
     static #status  = 'ready'
 
@@ -79,7 +79,7 @@ class ItzultzaileNeuronala
     static getUrl()
     {
         const type = this.getType()
-        return `https://api.euskadi.eus/itzuli/${type}/translate`
+        return `https://api.euskadi.eus/itzuli/${type}/v2/translate`
     }
 
     static getModel()
@@ -131,7 +131,7 @@ class ItzultzaileNeuronala
             .then((response) => response.json())            
             .then(function(r)
             {
-                resolve(r.message)
+                resolve(r.translation)
             })
             .catch(function(e)
             {

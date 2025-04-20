@@ -47,8 +47,6 @@ class Srt
         const ta   = text.split(r)
 
         let result = ''
-        console.log(self.#elements)
-        console.log(ta)
         self.#elements.forEach(function(element, i)
         {
             result += `${element.index}\n${element.from} --> ${element.to}\n`

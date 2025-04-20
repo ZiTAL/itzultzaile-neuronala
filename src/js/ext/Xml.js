@@ -97,9 +97,6 @@ class Xml
         {
             return s = s.replace(Config.sep.trim(), '')
         })
-
-        console.log(Config.sep)
-        console.log(str)
         
         for(let i=0; i<ele.length; i++)
         {

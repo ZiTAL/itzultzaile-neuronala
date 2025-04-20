@@ -69,8 +69,8 @@ Author = John Doe
 
     static replace(text)
     {
-        const self = this
-        const ta   = text.split(Config.sep)
+        const r    = new RegExp(Config.sep+"?", "m")
+        const ta   = text.split(r)
 
         let i      = 0
         let result = ''

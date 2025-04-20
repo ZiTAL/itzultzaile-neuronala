@@ -89,12 +89,17 @@ class Xml
     {
         const self = this
         const ele  = self.#elements
-        const str  = text.split(/\n/).filter(function(s)
+        let str    = text.split(/\n/).filter(function(s)
         {
             return (s.trim()!==Config.sep.trim())
-        })       
+        })
+        str        = str.map(function(s)
+        {
+            return s = s.replace(Config.sep.trim(), '')
+        })
+
         console.log(Config.sep)
-        console.log(str)             
+        console.log(str)
         
         for(let i=0; i<ele.length; i++)
         {

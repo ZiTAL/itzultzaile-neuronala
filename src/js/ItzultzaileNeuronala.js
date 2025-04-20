@@ -228,16 +228,13 @@ class ItzultzaileNeuronala
                 
             case 'text':
                 response = Text.replace(response)
-                break                
+                break
 
             default:
-                const sep  = `{Config.sep}$`
+                const sep  = `{Config.sep}?`
                 const sepr = new RegExp(sep)
                 response = response.replace(sepr, '')
         }
-
-        const sep_r = new RegExp(Config.sep.trim(), 'gm')
-        response    = response.replace(sep_r, '')
         
         return response
     }

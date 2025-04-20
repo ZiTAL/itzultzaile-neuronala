@@ -18,7 +18,7 @@ class Text
 
     static replace(text)
     {
-        const sep_r = new RegExp(Config.sep, 'gm')
+        const sep_r = new RegExp(Config.sep+"?", 'gm')
         return text.replace(sep_r, "\n")
     }
 }

@@ -15,7 +15,6 @@ class Po
 
     static getText(input)
     {
-        const self  = this
         const lines = input.split(/\n/)
         let r       = []
         let i       = 0
@@ -100,7 +99,8 @@ class Po
     static replace(text)
     {
         const self = this
-        const ta   = text.split(Config.sep)
+        const r    = new RegExp(Config.sep+"?", "m")
+        const ta   = text.split(r)
         let i      = 0
         let result = ''
 
